@@ -16,11 +16,6 @@
     <!------ Include the above in your HEAD tag ---------->
 
     <div class="wrapper fadeInDown ">
-        @if (Auth::check())
-         <h3>logado {{Auth::user()->name}}</h3>
-         @else
-         <h3>Nenhum usuario</h3>
-        @endif
         
         <div id="formContent" class="bg-dark">
             <!-- Tabs Titles -->
