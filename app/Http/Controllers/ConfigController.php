@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ConfigController extends Controller
 {
-    public function config()            
+    public function config()
     {
         return view('admin.config.config');
     }

@@ -26,12 +26,21 @@ Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard')->
 
 
 Route::middleware(['admin_master'])->group(function(){
+    //USUARIOS
     Route::get('/users', [UserController::class, 'users'])->name('users')->middleware('auth');
     Route::get('/user/create', [UserController::class, 'create'])->name('create_user')->middleware('auth');
     Route::post('/user/store', [UserController::class, 'store'])->name('store_user')->middleware('auth');
+    Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('edit_user')->middleware('auth');
+    Route::put('/user/edit/{id}', [UserController::class, 'update'])->name('update_user')->middleware('auth');
+    Route::delete('/user/delete/{id}', [UserController::class, 'delete'])->name('delete_user')->middleware('auth');
 
+    //CLIENTES
     Route::get('/clients', [ClientsController::class, 'clients'])->name('clients')->middleware('auth');
     Route::get('/clients/create', [ClientsController::class, 'create'])->name('create_client')->middleware('auth');
+    Route::post('/clients/create', [ClientsController::class, 'store'])->name('store_client')->middleware('auth');
+    Route::get('/clients/edit/{id}', [ClientsController::class, 'edit'])->name('edit_client')->middleware('auth');
+    Route::put('/clients/edit/{id}', [ClientsController::class, 'update'])->name('update_client')->middleware('auth');
+    Route::delete('/clients/delete/{id}', [ClientsController::class, 'delete'])->name('delete_client')->middleware('auth');
 
     Route::get('/config', [ConfigController::class, 'config'])->name('config')->middleware('auth');
 });

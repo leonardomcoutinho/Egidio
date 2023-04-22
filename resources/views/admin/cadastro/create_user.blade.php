@@ -58,7 +58,7 @@
 			<div class="mobile-only-brand pull-left">
 				<div class="nav-header pull-left">
 					<div class="logo-wrap bg-dark">
-						<a href="index.html">
+						<a href="{{route('dashboard')}}">
 							<img class="brand-img" src="/img/master_black.png" alt="mc" width="180px"/>
 						</a>
 					</div>
@@ -213,22 +213,18 @@
 					<i class="zmdi zmdi-more"></i>
 				</li>
 				<li>
-					<a class="active" href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Dashboard</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-					<ul id="dashboard_dr" class="collapse collapse-level-1">
-						<li>
-							<a class="active-page" href="index.html">Analytical</a>
-						</li>
-						
-					</ul>
+					<a class="active" href="{{route('dashboard')}}"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Dashboard</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
 				</li>
 				<li>
-					<a href="javascript:void(0);" data-toggle="collapse" data-target="#ecom_dr"><div class="pull-left"><i class="zmdi zmdi-plus-circle mr-20"></i><span class="right-nav-text">Cadastros</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
+					<a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#ecom_dr"><div class="pull-left"><i class="zmdi zmdi-plus-circle mr-20"></i><span class="right-nav-text">Cadastros</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+					
 					<ul id="ecom_dr" class="collapse collapse-level-1">
-						@if (Auth::user()->admin_master == true)
 						<li>
 							<a href="{{route('users')}}">Usuarios</a>
 						</li>
-						@endif
+						<li>
+							<a href="{{route('clients')}}">Clientes</a>
+						</li>
 						
 					</ul>
 				</li>
@@ -363,12 +359,19 @@
 												</div>
 												<div class="form-group">
 													<label class="control-label mb-10">Selecione o tipo de usuario</label>
-													<select class="selectpicker" data-style="form-control btn-default btn-outline" name="nivel" required>
+													<select class="selectpicker" data-style="form-control btn-default btn-outline" name="nivel" id="nivel" required>
 														<option selected disabled>Selecione o tipo de usuario</option>
 														<option value="1">Admin Master</option>
 														<option value="2">Admin</option>
 														<option value="3">Vendedor</option>
 													</select>
+												</div>
+												<div class="form-group comissao">
+													<label class="control-label mb-10 text-left" style="width: 70%">Percentual de comissão do vendedor</label>
+													<div class="input-group">
+														<div class="input-group-addon"><i class="fa fa-percent"></i></div>
+														<input type="text" class="form-control" id="exampleInputuname_3" placeholder="Username">
+													</div>
 												</div>
                                                 <div class="text-center mt-30">
                                                     <input type="submit" class="btn btn-success " value="Cadastrar" style="width: 100% !important">	
@@ -452,6 +455,15 @@
 		<!-- Init JavaScript -->
 		<script src="/dist/js/init.js"></script>
 		<script>
+			$('.comissao').hide()
+			$('#nivel').change(function(){
+				var nivel = ($(this).val());
+				if(nivel == 3){
+					$('.comissao').show()
+				}else{
+					$('.comissao').hide()
+				}
+			})
             $(document).ready(function(){
                 setTimeout(() => {
                     $('.msg').alert('close')

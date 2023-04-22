@@ -31,7 +31,7 @@
 			<div class="mobile-only-brand pull-left">
 				<div class="nav-header pull-left">
 					<div class="logo-wrap bg-dark">
-						<a href="index.html">
+						<a href="{{route('dashboard')}}">
 							<img class="brand-img" src="/img/master_black.png" alt="mc" width="180px"/>
 						</a>
 					</div>
@@ -186,22 +186,18 @@
 					<i class="zmdi zmdi-more"></i>
 				</li>
 				<li>
-					<a class="active" href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Dashboard</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-					<ul id="dashboard_dr" class="collapse collapse-level-1">
-						<li>
-							<a class="active-page" href="index.html">Analytical</a>
-						</li>
-						
-					</ul>
+					<a class="active" href="{{route('dashboard')}}"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Dashboard</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
 				</li>
 				<li>
-					<a href="javascript:void(0);" data-toggle="collapse" data-target="#ecom_dr"><div class="pull-left"><i class="zmdi zmdi-plus-circle mr-20"></i><span class="right-nav-text">Cadastros</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
+					<a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#ecom_dr"><div class="pull-left"><i class="zmdi zmdi-plus-circle mr-20"></i><span class="right-nav-text">Cadastros</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+					
 					<ul id="ecom_dr" class="collapse collapse-level-1">
-						@if (Auth::user()->admin_master == true)
 						<li>
 							<a href="{{route('users')}}">Usuarios</a>
 						</li>
-						@endif
+						<li>
+							<a href="{{route('clients')}}">Clientes</a>
+						</li>
 						
 					</ul>
 				</li>
@@ -338,8 +334,32 @@
                                                             Vendedor
                                                         @endif</td>
                                                         <td>
-                                                            <a href=""><i class="zmdi zmdi-edit text-primary mr-20"></i></a>
-                                                            <a href=""><i class="zmdi zmdi-delete text-danger mr-20"></i></a>
+                                                            <a href="{{route('edit_user', $user->id)}}"><i class="zmdi zmdi-edit text-primary mr-20"></i></a>
+															
+															<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+																<div class="modal-dialog">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+																			<h5 class="modal-title" id="myModalLabel">Excluir usuario</h5>
+																		</div>
+																		<div class="modal-body">
+																			<h5 class="mb-15">Tem certeza que deseja  excluir este usuario ?</p>
+																		</div>
+																		<div class="modal-footer">
+																			<form action="{{route('delete_user', $user->id)}}" method="POST">
+																				@csrf
+																				@method('DELETE')
+																				<button type="submit" class="btn btn-success">Sim</button>
+																				<button type="button" class="btn btn-info" data-dismiss="modal">Não</button>
+																			</form>
+																		</div>
+																	</div>
+																	<!-- /.modal-content -->
+																</div>
+																<!-- /.modal-dialog -->
+															</div>
+                                                            <a data-toggle="modal" data-target="#myModal"><i class="zmdi zmdi-delete text-danger mr-20"></i></a>
                                                         </td>
 													</tr>
                                                     @endforeach
@@ -400,7 +420,6 @@
 	
 	<!-- Switchery JavaScript -->
 	<script src="vendors/bower_components/switchery/dist/switchery.min.js"></script>
-	
 	
 	<!-- Fancy Dropdown JS -->
 	<script src="dist/js/dropdown-bootstrap-extended.js"></script>

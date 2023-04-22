@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<title>Clientes - MC</title>
-	<meta name="description" content="Philbert is a Dashboard & Admin Site Responsive Template by hencework." />
-	<meta name="keywords" content="admin, admin dashboard, admin template, cms, crm, Philbert Admin, Philbertadmin, premium admin templates, responsive admin, sass, panel, software, ui, visualization, web app, application" />
-	<meta name="author" content="hencework"/>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Editar Usuario - MC</title>
+		<meta name="description" content="Philbert is a Dashboard & Admin Site Responsive Template by hencework." />
+		<meta name="keywords" content="admin, admin dashboard, admin template, cms, crm, Philbert Admin, Philbertadmin, premium admin templates, responsive admin, sass, panel, software, ui, visualization, web app, application" />
+		<meta name="author" content="hencework"/>
+		
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
+		
+		<!-- Bootstrap Colorpicker CSS -->
+		<link href="/vendors/bower_components/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css"/>
+		
+		<!-- select2 CSS -->
+		<link href="/vendors/bower_components/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css"/>
+		
+		<!-- switchery CSS -->
+		<link href="/vendors/bower_components/switchery/dist/switchery.min.css" rel="stylesheet" type="text/css"/>
+		
+		<!-- bootstrap-select CSS -->
+		<link href="/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" type="text/css"/>
+		
+		<!-- bootstrap-tagsinput CSS -->
+		<link href="/vendors/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" type="text/css"/>
+		
+		<!-- bootstrap-touchspin CSS -->
+		<link href="/vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css"/>
+		
+		<!-- multi-select CSS -->
+		<link href="/vendors/bower_components/multiselect/css/multi-select.css" rel="stylesheet" type="text/css"/>
+		
+		<!-- Bootstrap Switches CSS -->
+		<link href="/vendors/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+		
+		<!-- Bootstrap Datetimepicker CSS -->
+		<link href="/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
+		 
+		
+		
+		<!-- Custom CSS -->
+		<link href="/dist/css/style.css" rel="stylesheet" type="text/css">
+	</head>
 	
-	<!-- Favicon -->
-	<link rel="shortcut icon" href="favicon.ico">
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
-	<!-- Data table CSS -->
-	<link href="vendors/bower_components/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
-	<!-- Custom CSS -->
-	<link href="dist/css/style.css" rel="stylesheet" type="text/css">
-</head>
-
-<body>
-	
+	<body>
+		
 	<!-- Preloader -->
 	<div class="preloader-it">
 		<div class="la-anim-1"></div>
@@ -267,181 +294,184 @@
 		</div>
 		<!-- /Left Sidebar Menu -->
 		
-
-		<!-- Main Content -->
-		<div class="page-wrapper">
-			<div class="container-fluid">
 				
-				<!-- Title -->
-				<div class="row heading-bg">
-					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-					  <h5 class="txt-dark">Clientes</h5>
-					</div>
-					<!-- Breadcrumb -->
-					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-					  <ol class="breadcrumb">
-						<li><a href="index.html">Dashboard</a></li>
-						<li class="active"><span>Clientes</span></li>
-					  </ol>
-					</div>
-					<!-- /Breadcrumb -->
-				</div>
-				<!-- /Title -->
-				
-				<!-- Row -->
-				<div class="row">
-                    <div class="col-sm-12">
-                        @if (session('success'))
-                            <div class="msg alert alert-success" role="alert">{{session('success')}}</div>
-                        @elseif(session('error'))
-                            <div class="msg alert alert-danger" role="alert">{{session('error')}}</div>
-                        @endif
-						<div style="display: flex; gap: 30px">
-							<div>
-								<a href="{{route('create_client')}}" class="btn btn-success mb-20"><i class="zmdi zmdi-plus-circle mr-20"></i>Cadastrar Cliente</a>
-							</div>
+			<!-- Main Content -->
+			<div class="page-wrapper">
+				<div class="container-fluid">
+					
+					<!-- Title -->
+					<div class="row heading-bg">
+						<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+							<h5 class="txt-dark">Editar Usuario</h5>
 						</div>
-                        
-						<div class="panel panel-default card-view">
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="table-wrap">
-										<div class="table-responsive">
-											<table id="example" class="table table-hover display  pb-30" >
-												<thead>
-													<tr>
-														<th>Vendedor</th>
-														<th>Cliente</th>
-														<th>Documento</th>
-														<th>Telefone</th>
-														<th>Cidade</th>
-														<th>UF</th>
-														<th>Data cadastro</th>
-														<th>Opções</th>
-													</tr>
-												</thead>
-												<tfoot>
-													<tr>
-														<th>Vendedor</th>
-														<th>Cliente</th>
-														<th>Documento</th>
-														<th>Telefone</th>
-														<th>Cidade</th>
-														<th>UF</th>
-														<th>Data cadastro</th>
-														<th>Opções</th>
-													</tr>
-												</tfoot>
-												<tbody>
-													@foreach ($clients as $client)
-													<tr>
-														<td>{{$client->user->name}}</td>
-														<td>{{$client->name}}</td>
-														<td>{{$client->document}}</td>
-														<td>{{$client->phone}}</td>
-														<td>{{$client->cidade}}</td>
-														<td>{{$client->estado}}</td>
-														<td>{{$client->created_at}}</td>
-														<td>
-                                                            <a href="{{route('edit_client', $client->id)}}"><i class="zmdi zmdi-edit text-primary mr-20"></i></a>
-                                                            <a data-toggle="modal" data-target="#myModal"><i class="zmdi zmdi-delete text-danger mr-20"></i></a>
-                                                        </td>
-													</tr>
-													<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-														<div class="modal-dialog">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-																	<h5 class="modal-title" id="myModalLabel">Excluir cliente</h5>
-																</div>
-																<div class="modal-body">
-																	<h5 class="mb-15">Tem certeza que deseja  excluir este cliente ?</p>
-																</div>
-																<div class="modal-footer">
-																	<form action="{{route('delete_client', $client->id)}}" method="POST">
-																		@csrf
-																		@method('DELETE')
-																		<button type="submit" class="btn btn-success">Sim</button>
-																		<button type="button" class="btn btn-info" data-dismiss="modal">Não</button>
-																	</form>
-																</div>
-															</div>
-															<!-- /.modal-content -->
-														</div>
-														<!-- /.modal-dialog -->
+					
+						<!-- Breadcrumb -->
+						<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+							<ol class="breadcrumb">
+								<li><a href="index.html">Dashboard</a></li>
+								<li class="active"><span>Editar Usuario</span></li>
+							</ol>
+						</div>
+						<!-- /Breadcrumb -->
+					
+					</div>
+					
+					<!-- Row -->
+					<div class="row" style="display: flex;justify-content: center">
+						<div class="col-md-6">
+							<div class="panel panel-default card-view">
+								<div class="panel-heading">
+									<div class="pull-left">
+										<h6 class="panel-title txt-dark">Altere os campos desejados para editar o usuario</h6>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<div class="panel-wrapper collapse in">
+									<div class="panel-body">
+                                        @if ($errors->all())
+                                        <span class="help-block">
+                                            <strong>{{ $errors }}</strong>
+                                        </span>
+                                        @endif
+                                        @if (session('success'))
+                                            <div class="msg alert alert-success" role="alert">{{session('success')}}</div>
+                                        @elseif(session('error'))
+                                            <div class="msg alert alert-danger" role="alert">{{session('error')}}</div>
+                                        @endif
+										<div class="form-wrap mt-40">
+											<form action="{{route('update_user', $user->id)}}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="form-group">
+													<label class="control-label mb-10 text-left">Nome Completo</label>
+													<input type="text" class="form-control" name="name" value="{{$user->name}}">
+												</div>
+                                                <div class="form-group">
+													<label class="control-label mb-10 text-left">Email</label>
+													<input type="email" class="form-control" name="email" value="{{$user->email}}">
+												</div>
+                                                <div class="form-group">
+													<label class="control-label mb-10 text-left">Senha</label>
+													<input type="password" class="form-control" name="password" value="{{$user->password}}">
+												</div>
+												<div class="form-group">
+													<label class="control-label mb-10">Tipo de usuario</label>
+													<select class="selectpicker" data-style="form-control btn-default btn-outline" name="nivel" id="nivel" required>
+														<option selected disabled>@if ($user->admin_master == 1)
+                                                            Admin Master
+                                                            @elseif($user->admin == 1)
+                                                            Admin
+                                                            @elseif($user->vendedor == 1)
+                                                            Vendedor
+                                                        @endif</option>
+														<option value="1">Admin Master</option>
+														<option value="2">Admin</option>
+														<option value="3">Vendedor</option>
+													</select>
+												</div>
+												<div class="form-group comissao">
+													<label class="control-label mb-10 text-left" style="width: 70%">Percentual de comissão do vendedor</label>
+													<div class="input-group">
+														<div class="input-group-addon"><i class="fa fa-percent"></i></div>
+														<input type="text" class="form-control" id="exampleInputuname_3" placeholder="Ex 0.10">
 													</div>
-													@endforeach
-                                                   
-												</tbody>
-											</table>
+												</div>
+                                                <div class="text-center mt-30">
+                                                    <input type="submit" class="btn btn-success " value="Editar" style="width: 100% !important">	
+                                                </div>
+											</form>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>	
+						</div>
 					</div>
 				</div>
-				<!-- /Row -->
+				
+				<!-- Footer -->
+				<footer class="footer container-fluid pl-30 pr-30">
+					<div class="row">
+						<div class="col-sm-12">
+							<p>2017 &copy; Philbert. Pampered by Hencework</p>
+						</div>
+					</div>
+				</footer>
+				<!-- /Footer -->
+				
 			</div>
-			
-			<!-- Footer -->
-			<footer class="footer container-fluid pl-30 pr-30">
-				<div class="row">
-					<div class="col-sm-12">
-						<p>2017 &copy; Philbert. Pampered by Hencework</p>
-					</div>
-				</div>
-			</footer>
-			<!-- /Footer -->
+			<!-- /Main Content -->
 			
 		</div>
-		<!-- /Main Content -->
-
-    </div>
-    <!-- /#wrapper -->
+		<!-- /#wrapper -->
+		
+		<!-- JavaScripts -->
+		
+		<!-- jQuery -->
+		<script src="/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+		
+		<!-- Bootstrap Core JavaScript -->
+		<script src="/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		
+		<!-- Moment JavaScript -->
+		<script type="/text/javascript" src="vendors/bower_components/moment/min/moment-with-locales.min.js"></script>
+		
+		<!-- Bootstrap Colorpicker JavaScript -->
+		<script src="/vendors/bower_components/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+		
+		<!-- Switchery JavaScript -->
+		<script src="/vendors/bower_components/switchery/dist/switchery.min.js"></script>
+		
+		<!-- Select2 JavaScript -->
+		<script src="/vendors/bower_components/select2/dist/js/select2.full.min.js"></script>
+		
+		<!-- Bootstrap Select JavaScript -->
+		<script src="/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+		
+		<!-- Bootstrap Tagsinput JavaScript -->
+		<script src="/vendors/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+		
+		<!-- Bootstrap Touchspin JavaScript -->
+		<script src="/vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+		
+		<!-- Multiselect JavaScript -->
+		<script src="/vendors/bower_components/multiselect/js/jquery.multi-select.js"></script>
+		
+		 
+		<!-- Bootstrap Switch JavaScript -->
+		<script src="/vendors/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+		
+		<!-- Bootstrap Datetimepicker JavaScript -->
+		<script type="/text/javascript" src="vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+		
+		<!-- Form Advance Init JavaScript -->
+		<script src="/dist/js/form-advance-data.js"></script>
+		
+		<!-- Slimscroll JavaScript -->
+		<script src="/dist/js/jquery.slimscroll.js"></script>
 	
-	<!-- JavaScript -->
+		<!-- Fancy Dropdown JS -->
+		<script src="/dist/js/dropdown-bootstrap-extended.js"></script>
+		
+		<!-- Owl JavaScript -->
+		<script src="/vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
 	
-    <!-- jQuery -->
-    <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    
-	<!-- Data table JavaScript -->
-	<script src="vendors/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-	<script src="vendors/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script src="vendors/bower_components/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="vendors/bower_components/jszip/dist/jszip.min.js"></script>
-	<script src="vendors/bower_components/pdfmake/build/pdfmake.min.js"></script>
-	<script src="vendors/bower_components/pdfmake/build/vfs_fonts.js"></script>
-	
-	<script src="vendors/bower_components/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="vendors/bower_components/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script src="dist/js/export-table-data.js"></script>
-	
-	<!-- Slimscroll JavaScript -->
-	<script src="dist/js/jquery.slimscroll.js"></script>
-	
-	<!-- Owl JavaScript -->
-	<script src="vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
-	
-	<!-- Switchery JavaScript -->
-	<script src="vendors/bower_components/switchery/dist/switchery.min.js"></script>
-	
-	
-	<!-- Fancy Dropdown JS -->
-	<script src="dist/js/dropdown-bootstrap-extended.js"></script>
-	
-	<!-- Init JavaScript -->
-	<script src="dist/js/init.js"></script>
-	<script>
-        $(document).ready(function(){
-            setTimeout(() => {
-                $('.msg').alert('close')
-            }, 5000);
-        })
-    </script>
-</body>
-
+		<!-- Init JavaScript -->
+		<script src="/dist/js/init.js"></script>
+		<script>
+			// $('.comissao').hide()
+			// $('#nivel').change(function(){
+			// 	var nivel = ($(this).val());
+			// 	if(nivel == 3){
+			// 		$('.comissao').show()
+			// 	}else{
+			// 		$('.comissao').hide()
+			// 	}
+			// })
+            $(document).ready(function(){
+                setTimeout(() => {
+                    $('.msg').alert('close')
+                }, 5000);
+            })
+        </script>
+	</body>
 </html>

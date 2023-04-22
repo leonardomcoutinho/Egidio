@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect()->route('dashboard');
         }
         return view('login');
@@ -43,7 +43,7 @@ class UserController extends Controller
     }
     public function store(Request $request)
     {
-        
+
         $validate = $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -72,9 +72,25 @@ class UserController extends Controller
         if (!empty($validate) && $request->password == $request->confirm_password) {
             $user->password = bcrypt($request->password);
             $user->save();
-            return redirect()->route('users')->with('success','Usuario cadastrado com sucesso');
-        }else{
-            return redirect()->route('create_user')->with('error','Erro ao cadastrar usuario');
+            return redirect()->route('users')->with('success', 'Usuario cadastrado com sucesso');
+        } else {
+            return redirect()->route('create_user')->with('error', 'Erro ao cadastrar usuario');
         }
+    }
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('admin.cadastro.edit_user', compact('user'));
+    }
+    public function update(Request $request)
+    {
+        User::findOrFail($request->id)->update($request->all());
+        return redirect()->route('users')->with('success', 'Dados alterados com sucesso!');
+    }
+    public function delete($id)
+    {
+        User::findOrFail($id)->delete();
+        return redirect()->route('users')->with('success', 'Usuario deletado com sucesso!');
     }
 }

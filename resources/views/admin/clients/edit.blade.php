@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<title>Cadastro Cliente - MC</title>
+		<title>Editar Cliente - MC</title>
 		<meta name="description" content="Philbert is a Dashboard & Admin Site Responsive Template by hencework." />
 		<meta name="keywords" content="admin, admin dashboard, admin template, cms, crm, Philbert Admin, Philbertadmin, premium admin templates, responsive admin, sass, panel, software, ui, visualization, web app, application" />
 		<meta name="author" content="hencework"/>
@@ -292,9 +292,8 @@
 					<a href="{{route('config')}}"><div class="pull-left"><i class="zmdi zmdi-settings mr-20"></i><span class="right-nav-text">Configuração</span></div><div class="clearfix"></div></a>
 				</li>
 			</ul>
-		</div>
-		<!-- /Left Sidebar Menu -->
-		
+			</div>
+			<!-- Left Sidebar Menu -->
 				
 			<!-- Main Content -->
 			<div class="page-wrapper">
@@ -303,14 +302,14 @@
 					<!-- Title -->
 					<div class="row heading-bg">
 						<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-							<h5 class="txt-dark">Cadastro de Clientes</h5>
+							<h5 class="txt-dark">Editar Clientes</h5>
 						</div>
 					
 						<!-- Breadcrumb -->
 						<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 							<ol class="breadcrumb">
 								<li><a href="index.html">Dashboard</a></li>
-								<li class="active"><span>Cadastro de Clientes</span></li>
+								<li class="active"><span>Editar Clientes</span></li>
 							</ol>
 						</div>
 						<!-- /Breadcrumb -->
@@ -323,7 +322,7 @@
 							<div class="panel panel-default card-view">
 								<div class="panel-heading">
 									<div class="pull-left">
-										<h6 class="panel-title txt-dark">Preencha os dados para cadastrar novo cliente</h6>
+										<h6 class="panel-title txt-dark">Altere as informações do cliente</h6>
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -340,89 +339,66 @@
                                             <div class="msg alert alert-danger" role="alert">{{session('error')}}</div>
                                         @endif
 										<div class="form-wrap mt-40">
-											<form action="{{route('store_client')}}" method="POST">
+											<form action="{{route('update_client', $client->id)}}" method="POST">
                                                 @csrf
-												@if (Auth::user()->admin_master || Auth::user()->admin)
+                                                @method('PUT')
 												<div class="form-group">
 													<label class="control-label mb-10">Vendedor</label>
-													<select class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true" required name="user_id">
-															<option selected disabled>Selecione um vendedor</option>
-                                                            @foreach ($users as $user)
-                                                            <option value="{{$user->id}}">{{$user->name}}</option>
-                                                            @endforeach
+													<select class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true" required name="user_id" disabled>
+															<option selected value="{{$vendedor->id}}">{{$vendedor->name}}</option>
 													</select>
 												</div>
-												@endif
-												@if (Auth::user()->vendedor == 1 && Auth::user()->admin_master == 0 && Auth::user()->admin == 0)
-												<div class="form-group">
-													<label class="control-label mb-10">Vendedor</label>
-													<select class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true" required name="user_id">
-															<option selected value="{{Auth::user()->id}}">{{Auth::user()->name}}</option>
-													</select>
-												</div>
-												@endif
                                                 
                                                 <div class="mt-30 mb-30 pb-20" style="border-bottom: solid 1px grey">
                                                     <h5>Dados do Cliente</h5>
                                                 </div>
                                                 <div class="form-group">
 													<label class="control-label mb-10 text-left">Nome do Cliente</label>
-													<input type="text" class="form-control" name="name" >
+													<input type="text" class="form-control" name="name"  value="{{$client->name}}">
 												</div>
-                                                <div class="form-group">
-                                                    <label class="control-label mb-10">Seleciona o Tipo de Pessoa</label>
-                                                    <select class="selectpicker" data-style="form-control btn-default btn-outline" name="type" id="type" required>
-                                                        <option selected disabled>Selecione...</option>
-                                                        <option value="pf">Pessoa Fisica ( CPF )</option>
-                                                        <option value="pj">Pessoa Juridica ( CNPJ )</option>
-                                                    </select>
-                                                </div>
                                                 <div class="form-group doc_cpf">
-                                                    <label class="control-label mb-10 text-left">CPF</label>
-                                                    <input type="text" class="form-control" name="cpf" id="cpf">
-                                                </div>
-                                                <div class="form-group doc_cnpj">
-                                                    <label class="control-label mb-10 text-left">CNPJ</label>
-                                                    <input type="text" class="form-control" name="cnpj" id="cnpj"> 
+                                                    <label class="control-label mb-10 text-left">Documento</label>
+                                                    <input type="text" class="form-control" name="document" id="cpf" value="{{$client->document}}">
+                                                  
                                                 </div>
                                                 <div class="form-group">
 													<label class="control-label mb-10 text-left">Email</label>
-													<input type="email" class="form-control" name="email" >
+													<input type="email" class="form-control" name="email" value="{{$client->email}}">
 												</div>
                                                 <div class="form-group">
 													<label class="control-label mb-10 text-left">Telefone</label>
-													<input type="text" class="form-control" name="phone" id="phone">
+													<input type="text" class="form-control" name="phone" id="phone" value="{{$client->phone}}">
 												</div>
                                                 <div class="mt-30 mb-30 pb-20" style="border-bottom: solid 1px grey">
                                                     <h5>Endereço</h5>
                                                 </div>
                                                 <div class="form-group">
 													<label class="control-label mb-10 text-left">CEP</label>
-													<input type="text" class="form-control" name="cep" id="cep" onblur="pesquisacep(this.value);">
+													<input type="text" class="form-control" name="cep" id="cep" onblur="pesquisacep(this.value);" value="{{$client->cep}}">
 												</div>
                                                 <div style="display: flex;">
                                                     <div class="form-group" style="width: 60%">
                                                         <label class="control-label mb-10 text-left">Logradouro</label>
-                                                        <input type="text" class="form-control" name="rua" id="rua">
+                                                        <input type="text" class="form-control" name="rua" id="rua" value="{{$client->rua}}">
                                                     </div>
                                                     <div class="form-group" style="width: 39%; margin-left:1%;">
                                                         <label class="control-label mb-10 text-left">Bairro</label>
-                                                        <input type="text" class="form-control" name="bairro" id="bairro">
+                                                        <input type="text" class="form-control" name="bairro" id="bairro" value="{{$client->bairro}}">
                                                     </div>
                                                 </div>
                                                 <div style="display: flex;">
                                                     <div class="form-group" style="width: 80%">
                                                         <label class="control-label mb-10 text-left">Cidade</label>
-                                                        <input type="text" class="form-control" name="cidade" id="cidade">
+                                                        <input type="text" class="form-control" name="cidade" id="cidade" value="{{$client->cidade}}">
                                                     </div>
                                                     <div class="form-group" style="width: 19%; margin-left:1%;">
                                                         <label class="control-label mb-10 text-left">Estado(UF)</label>
-                                                        <input type="text" class="form-control" name="estado" id="uf">
+                                                        <input type="text" class="form-control" name="estado" id="uf" value="{{$client->estado}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label mb-10 text-left">Complemento</label>
-                                                    <input type="text" class="form-control" name="complemento" id="complemento" placeholder="Numero, casa/apt, quadra e lote, etc." required>
+                                                    <input type="text" class="form-control" name="complemento" id="complemento" placeholder="Numero, casa/apt, quadra e lote, etc." value="{{$client->complemento}}">
                                                 </div>
                                                 
 												
