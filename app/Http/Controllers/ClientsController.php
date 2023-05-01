@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\UsersImport;
 use App\Models\Clients;
+use App\Models\Config;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,13 +14,15 @@ class ClientsController extends Controller
 {
     public function clients()
     {
+        $config = Config::all()->first();
         $clients = Clients::with('User')->get();
-        return view('admin.clients.clients', compact('clients'));
+        return view('admin.clients.clients', compact('clients', 'config'));
     }
     public function create()
     {
+        $config = Config::all()->first();
         $users = User::all();
-        return view('admin.clients.create_client', compact('users'));
+        return view('admin.clients.create_client', compact('users', 'config'));
     }
     public function store(Request $request)
     {
@@ -53,9 +56,10 @@ class ClientsController extends Controller
     }
     public function edit($id)
     {
+        $config = Config::all()->first();
         $client = Clients::findOrFail($id);
         $vendedor = User::where('id', $client->user_id)->first();
-        return view('admin.clients.edit', compact('client', 'vendedor'));
+        return view('admin.clients.edit', compact('client', 'vendedor', 'config'));
     }
     public function update(Request $request)
     {

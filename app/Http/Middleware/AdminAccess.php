@@ -24,7 +24,7 @@ class AdminAccess
             if(!Auth::check()){
                 return redirect()->route('login');
             }
-            dd("Você não tem permissão");
+            return redirect()->back()->with('error', 'Permissão negada, você não tem permissão para executar esta ação!');
         }
     }
 }

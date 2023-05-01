@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\SellController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +25,7 @@ Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard')->middleware('auth');
 
-
-Route::middleware(['admin_master'])->group(function(){
+Route::middleware(['admin_master'])->group(function () {
     //USUARIOS
     Route::get('/users', [UserController::class, 'users'])->name('users')->middleware('auth');
     Route::get('/user/create', [UserController::class, 'create'])->name('create_user')->middleware('auth');
@@ -42,5 +42,35 @@ Route::middleware(['admin_master'])->group(function(){
     Route::put('/clients/edit/{id}', [ClientsController::class, 'update'])->name('update_client')->middleware('auth');
     Route::delete('/clients/delete/{id}', [ClientsController::class, 'delete'])->name('delete_client')->middleware('auth');
 
+    //IMPORT
+    Route::get('/sells', [SellController::class, 'index'])->name('sell')->middleware('auth');
+    Route::post('/sells/import', [SellController::class, 'importSell'])->name('import_sell')->middleware('auth');
+
+    //CONFIG
     Route::get('/config', [ConfigController::class, 'config'])->name('config')->middleware('auth');
+    Route::put('/config/tema/{id}', [ConfigController::class, 'tema'])->name('tema')->middleware('auth');
 });
+Route::middleware(['admin'])->group(function () {
+    //USUARIOS
+    Route::get('/users', [UserController::class, 'users'])->name('users')->middleware('auth');
+
+    //CLIENTES
+    Route::get('/clients', [ClientsController::class, 'clients'])->name('clients')->middleware('auth');
+    Route::get('/clients/create', [ClientsController::class, 'create'])->name('create_client')->middleware('auth');
+    Route::post('/clients/create', [ClientsController::class, 'store'])->name('store_client')->middleware('auth');
+    Route::get('/clients/edit/{id}', [ClientsController::class, 'edit'])->name('edit_client')->middleware('auth');
+    Route::put('/clients/edit/{id}', [ClientsController::class, 'update'])->name('update_client')->middleware('auth');
+    Route::delete('/clients/delete/{id}', [ClientsController::class, 'delete'])->name('delete_client')->middleware('auth');
+});
+
+
+//AREA DE USUARIO VENDEDOR
+//USUARIOS
+Route::get('/users', [UserController::class, 'users'])->name('users')->middleware('vendedor');
+
+//CLIENTES
+Route::get('/clients', [ClientsController::class, 'clients'])->name('clients')->middleware('auth');
+Route::get('/clients/create', [ClientsController::class, 'create'])->name('create_client')->middleware('auth');
+Route::post('/clients/create', [ClientsController::class, 'store'])->name('store_client')->middleware('auth');
+Route::get('/clients/edit/{id}', [ClientsController::class, 'edit'])->name('edit_client')->middleware('auth');
+Route::put('/clients/edit/{id}', [ClientsController::class, 'update'])->name('update_client')->middleware('auth');

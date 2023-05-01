@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,8 @@ class UserController extends Controller
         if (Auth::check()) {
             return redirect()->route('dashboard');
         }
-        return view('login');
+        $config = Config::all()->first();
+        return view('login', compact('config'));
     }
     public function auth(Request $request)
     {
@@ -34,12 +36,14 @@ class UserController extends Controller
     }
     public function users()
     {
+        $config = Config::all()->first();
         $users = User::all();
-        return view('admin.cadastro.users', compact('users'));
+        return view('admin.cadastro.users', compact('users', 'config'));
     }
     public function create()
     {
-        return view('admin.cadastro.create_user');
+        $config = Config::all()->first();
+        return view('admin.cadastro.create_user', compact('config'));
     }
     public function store(Request $request)
     {
@@ -55,7 +59,6 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
 
-        dd($request->nivel);
         if ($request->nivel == 1) {
             $user->admin_master = 1;
             $user->admin = 0;
@@ -80,8 +83,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-
-        return view('admin.cadastro.edit_user', compact('user'));
+        $config = Config::all()->first();
+        return view('admin.cadastro.edit_user', compact('user', 'config'));
     }
     public function update(Request $request)
     {

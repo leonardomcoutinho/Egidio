@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -12,10 +12,12 @@
 		<link rel="icon" href="favicon.ico" type="image/x-icon">
 		
 		<!-- Custom CSS -->
-		<link href="dist/css/style.css" rel="stylesheet" type="text/css">
+		<link href="dist/css/{{$config->tema}}" rel="stylesheet" type="text/css">
+		
 	</head>
 	<body>
 			
+	
 	<!-- Preloader -->
 	<div class="preloader-it">
 		<div class="la-anim-1"></div>
@@ -26,7 +28,7 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="mobile-only-brand pull-left">
 				<div class="nav-header pull-left">
-					<div class="logo-wrap bg-dark">
+					<div class="logo-wrap">
 						<a href="index.html">
 							<img class="brand-img" src="/img/master_black.png" alt="mc" width="180px"/>
 						</a>
@@ -182,22 +184,24 @@
 					<i class="zmdi zmdi-more"></i>
 				</li>
 				<li>
-					<a class="active" href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Dashboard</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-					<ul id="dashboard_dr" class="collapse collapse-level-1">
-						<li>
-							<a class="active-page" href="index.html">Analytical</a>
-						</li>
-						
-					</ul>
+					<a class="active" href="{{route('dashboard')}}"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Dashboard</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
 				</li>
+				@if (Auth::user()->admin_master)
+					
 				<li>
-					<a href="javascript:void(0);" data-toggle="collapse" data-target="#ecom_dr"><div class="pull-left"><i class="zmdi zmdi-plus-circle mr-20"></i><span class="right-nav-text">Cadastros</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
+					<a href="{{route('sell')}}"><div class="pull-left"><i class="zmdi zmdi-mail-send mr-20"></i><span class="right-nav-text">Importar Vendas</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+				</li>
+				@endif
+				<li>
+					<a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#ecom_dr"><div class="pull-left"><i class="zmdi zmdi-plus-circle mr-20"></i><span class="right-nav-text">Cadastros</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+					
 					<ul id="ecom_dr" class="collapse collapse-level-1">
-						@if (Auth::user()->admin_master == true)
 						<li>
 							<a href="{{route('users')}}">Usuarios</a>
 						</li>
-						@endif
+						<li>
+							<a href="{{route('clients')}}">Clientes</a>
+						</li>
 						
 					</ul>
 				</li>
@@ -265,10 +269,17 @@
 				</li>
 			</ul>
 		</div>
+		<!-- /Left Sidebar Menu -->
+		
 		
 		<!-- Main Content -->
 		<div class="page-wrapper">
 			<div class="container-fluid">
+						@if (session('success'))
+                            <div class="msg alert alert-success" role="alert">{{session('success')}}</div>
+                        @elseif(session('error'))
+                            <div class="msg alert alert-danger" role="alert">{{session('error')}}</div>
+                        @endif
 				<!-- Title -->
 				<div class="row heading-bg">
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -299,12 +310,24 @@
 									<p class="text-muted text-center">Configurações dos parametros do sistema</p>
 									<div  class="tab-struct custom-tab-1 mt-40">
 										<ul role="tablist" class="nav nav-tabs" id="myTabs_7">
-											<li class="active" role="presentation"><a aria-expanded="true"  data-toggle="tab" role="tab" id="home_tab_7" href="#home_7">Usuarios</a></li>
-											<li role="presentation" class=""><a  data-toggle="tab" id="profile_tab_7" role="tab" href="#profile_7" aria-expanded="false">Metas</a></li>
+											<li class="active" role="presentation"><a aria-expanded="true"  data-toggle="tab" role="tab" id="home_tab_7" href="#home_7">Sistema</a></li>
+											{{-- <li role="presentation" class=""><a  data-toggle="tab" id="profile_tab_7" role="tab" href="#profile_7" aria-expanded="false">Metas</a></li> --}}
 										</ul>
 										<div class="tab-content" id="myTabContent_7">
 											<div  id="home_7" class="tab-pane fade active in" role="tabpanel">
-												<p>Lorem ipsum dolor sit amet, et pertinax ocurreret scribentur sit, eum euripidis assentior ei. In qui quodsi maiorum, dicta clita duo ut. Fugit sonet quo te. Ad vel quando causae signiferumque. Aperiam luptatum senserit eu vis, eu ius purto torquatos vituperatoribus.An nec fastidii eligendi molestiae.</p>
+												
+												<form action="{{route('tema', $config->id)}}" method="POST">								
+													@csrf
+													@method('PUT')
+													<div class="form-group">
+														<label class="control-label mb-10">Selecione o tema</label>
+														<select class="selectpicker" name="tema" style="background-color: transparent;border-radius: 10px;padding: 5px 30px;">
+															<option value="style2.css">Claro</option>
+															<option value="style.css">Escuro</option>
+														</select>
+													</div>
+													<button type="submit" class="btn btn-primary">Salvar</button>
+												</form>
 											</div>
 											<div  id="profile_7" class="tab-pane fade" role="tabpanel">
 												<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.</p>
@@ -319,7 +342,7 @@
 				<!-- /Row -->
 				
 				<!-- Row -->
-				<
+				
 			
 			</div>
 			<!-- Footer -->
@@ -368,5 +391,12 @@
 		
 		<!-- Init JavaScript -->
 		<script src="dist/js/init.js"></script>
+		<script>
+			$(document).ready(function(){
+				setTimeout(() => {
+					$('.msg').alert('close')
+				}, 5000);
+			})
+		</script>
 	</body>
 </html>

@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<title>Usuarios - MC</title>
-	<meta name="description" content="Philbert is a Dashboard & Admin Site Responsive Template by hencework." />
-	<meta name="keywords" content="admin, admin dashboard, admin template, cms, crm, Philbert Admin, Philbertadmin, premium admin templates, responsive admin, sass, panel, software, ui, visualization, web app, application" />
-	<meta name="author" content="hencework"/>
-	
-	<!-- Favicon -->
-	<link rel="shortcut icon" href="favicon.ico">
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
-	<!-- Data table CSS -->
-	<link href="vendors/bower_components/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
-	<!-- Custom CSS -->
-	<link href="dist/css/{{$config->tema}}" rel="stylesheet" type="text/css">
-</head>
-
-<body>
-	
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Importar Vendas</title>
+		<meta name="description" content="Philbert is a Dashboard & Admin Site Responsive Template by hencework." />
+		<meta name="keywords" content="admin, admin dashboard, admin template, cms, crm, Philbert Admin, Philbertadmin, premium admin templates, responsive admin, sass, panel, software, ui, visualization, web app, application" />
+		<meta name="author" content="hencework"/>
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
+		
+		<!-- Bootstrap Dropify CSS -->
+		<link href="vendors/bower_components/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css"/>
+		
+		<!-- Custom CSS -->
+		<link href="dist/css/{{$config->tema}}" rel="stylesheet" type="text/css">
+	</head>
+	<body>
 	
 	<!-- Preloader -->
 	<div class="preloader-it">
@@ -275,172 +273,108 @@
 		<!-- /Left Sidebar Menu -->
 		
 		
-
-		<!-- Main Content -->
-		<div class="page-wrapper">
-			<div class="container-fluid">
-				
-				<!-- Title -->
-				<div class="row heading-bg">
-					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-					  <h5 class="txt-dark">Usuarios</h5>
-					</div>
-					<!-- Breadcrumb -->
-					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-					  <ol class="breadcrumb">
-						<li><a href="index.html">Dashboard</a></li>
-						<li class="active"><span>Usuarios</span></li>
-					  </ol>
-					</div>
-					<!-- /Breadcrumb -->
-				</div>
-				<!-- /Title -->
-				
-				<!-- Row -->
-				<div class="row">
-                    <div class="col-sm-12">
-                        @if (session('success'))
+		
+			<!-- Main Content -->
+			<div class="page-wrapper">
+				<div class="container-fluid">
+					@if (session('success'))
                             <div class="msg alert alert-success" role="alert">{{session('success')}}</div>
                         @elseif(session('error'))
                             <div class="msg alert alert-danger" role="alert">{{session('error')}}</div>
                         @endif
-                        <div>
-                            <a href="{{route('create_user')}}" class="btn btn-success mb-20"><i class="zmdi zmdi-plus-circle mr-20"></i>Cadastrar Usuario</a>
-                        </div>
-						<div class="panel panel-default card-view">
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="table-wrap">
-										<div class="table-responsive">
-											<table id="example" class="table table-hover display  pb-30" >
-												<thead>
-													<tr>
-														<th>Nome</th>
-														<th>Email</th>
-														<th>Tipo</th>
-														<th>Opções</th>
-													</tr>
-												</thead>
-												<tfoot>
-													<tr>
-														<th>Nome</th>
-														<th>Email</th>
-														<th>Tipo</th>
-														<th>Opções</th>
-													</tr>
-												</tfoot>
-												<tbody>
-                                                    @foreach ($users as $user)
-                                                    <tr>
-														<td>{{$user->name}}</td>
-														<td>{{$user->email}}</td>
-														<td>@if ($user->admin_master)
-                                                            Admin Master
-                                                        @elseif($user->admin)
-                                                            Admin
-                                                        @elseif($user->vendedor)
-                                                            Vendedor
-                                                        @endif</td>
-                                                        <td>
-                                                            <a href="{{route('edit_user', $user->id)}}"><i class="zmdi zmdi-edit text-primary mr-20"></i></a>
-															
-															<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-																<div class="modal-dialog">
-																	<div class="modal-content">
-																		<div class="modal-header">
-																			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-																			<h5 class="modal-title" id="myModalLabel">Excluir usuario</h5>
-																		</div>
-																		<div class="modal-body">
-																			<h5 class="mb-15">Tem certeza que deseja  excluir este usuario ?</p>
-																		</div>
-																		<div class="modal-footer">
-																			<form action="{{route('delete_user', $user->id)}}" method="POST">
-																				@csrf
-																				@method('DELETE')
-																				<button type="submit" class="btn btn-success">Sim</button>
-																				<button type="button" class="btn btn-info" data-dismiss="modal">Não</button>
-																			</form>
-																		</div>
-																	</div>
-																	<!-- /.modal-content -->
-																</div>
-																<!-- /.modal-dialog -->
-															</div>
-                                                            <a data-toggle="modal" data-target="#myModal"><i class="zmdi zmdi-delete text-danger mr-20"></i></a>
-                                                        </td>
-													</tr>
-                                                    @endforeach
-													
-												</tbody>
-											</table>
-										</div>
+					<!-- Title -->
+					<div class="row heading-bg">
+						<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						  <h5 class="txt-dark">Importar Vendas</h5>
+						</div>
+						<!-- Breadcrumb -->
+						<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+						  <ol class="breadcrumb">
+							<li><a href="{{route('dashboard')}}">Dashboard</a></li>
+							<li class="active"><span>Importar Vendas</span></li>
+						  </ol>
+						</div>
+						<!-- /Breadcrumb -->
+					</div>
+					<!-- /Title -->
+					
+					<!-- Row -->
+					<div class="row">
+						<div class="col-sm-12 ol-md-12 col-xs-12">
+							<div class="panel panel-default card-view">
+								<div class="panel-heading">
+									<div class="pull-left">
+										<h6 class="panel-title txt-dark">Importar Venda</h6>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<div class="panel-wrapper collapse in">
+									<div class="panel-body">
+										<p class="text-muted">Clique ou arraste o arquivo para importar as vendas</p>
+										<div class="mt-40">
+                                            <form action="{{route('import_sell')}}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="file" name="file" />
+                                                <button type="submit" class="btn btn-success mt-30">Enviar</button>
+                                            </form>
+										</div>	
 									</div>
 								</div>
 							</div>
-						</div>	
+						</div>
 					</div>
+					
 				</div>
-				<!-- /Row -->
+				
+				<!-- Footer -->
+				<footer class="footer container-fluid pl-30 pr-30">
+					<div class="row">
+						<div class="col-sm-12">
+							<p>2017 &copy; Philbert. Pampered by Hencework</p>
+						</div>
+					</div>
+				</footer>
+				<!-- /Footer -->
+				
 			</div>
-			
-			<!-- Footer -->
-			<footer class="footer container-fluid pl-30 pr-30">
-				<div class="row">
-					<div class="col-sm-12">
-						<p>2017 &copy; Philbert. Pampered by Hencework</p>
-					</div>
-				</div>
-			</footer>
-			<!-- /Footer -->
-			
+			<!-- /Main Content -->
 		</div>
-		<!-- /Main Content -->
-
-    </div>
-    <!-- /#wrapper -->
+		<!-- /#wrapper -->
+		
+		<!-- JavaScripts -->
+		
+		<!-- jQuery -->
+		<script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+		
+		<!-- Bootstrap Core JavaScript -->
+		<script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		
+		<!-- Bootstrap Daterangepicker JavaScript -->
+		<script src="vendors/bower_components/dropify/dist/js/dropify.min.js"></script>
+		
+		<!-- Form Flie Upload Data JavaScript -->
+		<script src="dist/js/form-file-upload-data.js"></script>
+		
+		<!-- Slimscroll JavaScript -->
+		<script src="dist/js/jquery.slimscroll.js"></script>
 	
-	<!-- JavaScript -->
+		<!-- Fancy Dropdown JS -->
+		<script src="dist/js/dropdown-bootstrap-extended.js"></script>
+		
+		<!-- Owl JavaScript -->
+		<script src="vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
 	
-    <!-- jQuery -->
-    <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    
-	<!-- Data table JavaScript -->
-	<script src="vendors/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-	<script src="vendors/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script src="vendors/bower_components/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="vendors/bower_components/jszip/dist/jszip.min.js"></script>
-	<script src="vendors/bower_components/pdfmake/build/pdfmake.min.js"></script>
-	<script src="vendors/bower_components/pdfmake/build/vfs_fonts.js"></script>
+		<!-- Switchery JavaScript -->
+		<script src="vendors/bower_components/switchery/dist/switchery.min.js"></script>
 	
-	<script src="vendors/bower_components/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="vendors/bower_components/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script src="dist/js/export-table-data.js"></script>
-	
-	<!-- Slimscroll JavaScript -->
-	<script src="dist/js/jquery.slimscroll.js"></script>
-	
-	<!-- Owl JavaScript -->
-	<script src="vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
-	
-	<!-- Switchery JavaScript -->
-	<script src="vendors/bower_components/switchery/dist/switchery.min.js"></script>
-	
-	<!-- Fancy Dropdown JS -->
-	<script src="dist/js/dropdown-bootstrap-extended.js"></script>
-	
-	<!-- Init JavaScript -->
-	<script src="dist/js/init.js"></script>
-	<script>
-        $(document).ready(function(){
-            setTimeout(() => {
-                $('.msg').alert('close')
-            }, 5000);
-        })
-    </script>
-</body>
-
+		<!-- Init JavaScript -->
+		<script src="dist/js/init.js"></script>
+		<script>
+			$(document).ready(function(){
+				setTimeout(() => {
+					$('.msg').alert('close')
+				}, 5000);
+			})
+		</script>
+	</body>
 </html>

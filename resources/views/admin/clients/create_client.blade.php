@@ -42,12 +42,13 @@
 		
 		
 		<!-- Custom CSS -->
-		<link href="/dist/css/style.css" rel="stylesheet" type="text/css">
+		<link href="/dist/css/{{$config->tema}}" rel="stylesheet" type="text/css">
         
 	</head>
 	
 	<body>
 		
+	
 	<!-- Preloader -->
 	<div class="preloader-it">
 		<div class="la-anim-1"></div>
@@ -58,8 +59,8 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="mobile-only-brand pull-left">
 				<div class="nav-header pull-left">
-					<div class="logo-wrap bg-dark">
-						<a href="{{route('dashboard')}}">
+					<div class="logo-wrap">
+						<a href="index.html">
 							<img class="brand-img" src="/img/master_black.png" alt="mc" width="180px"/>
 						</a>
 					</div>
@@ -216,6 +217,12 @@
 				<li>
 					<a class="active" href="{{route('dashboard')}}"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Dashboard</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
 				</li>
+				@if (Auth::user()->admin_master)
+					
+				<li>
+					<a href="{{route('sell')}}"><div class="pull-left"><i class="zmdi zmdi-mail-send mr-20"></i><span class="right-nav-text">Importar Vendas</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+				</li>
+				@endif
 				<li>
 					<a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#ecom_dr"><div class="pull-left"><i class="zmdi zmdi-plus-circle mr-20"></i><span class="right-nav-text">Cadastros</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
 					
@@ -295,6 +302,7 @@
 		</div>
 		<!-- /Left Sidebar Menu -->
 		
+		
 				
 			<!-- Main Content -->
 			<div class="page-wrapper">
@@ -320,6 +328,11 @@
 					<!-- Row -->
 					<div class="row" style="display: flex;justify-content: center">
 						<div class="col-md-6">
+							@if (session('success'))
+                            <div class="msg alert alert-success" role="alert">{{session('success')}}</div>
+                        @elseif(session('error'))
+                            <div class="msg alert alert-danger" role="alert">{{session('error')}}</div>
+                        @endif
 							<div class="panel panel-default card-view">
 								<div class="panel-heading">
 									<div class="pull-left">
